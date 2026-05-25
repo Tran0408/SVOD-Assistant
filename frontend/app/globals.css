@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #020203;
+  --bg-base: #050506;
+  --bg-elevated: #0a0a0c;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --foreground: #ededef;
+  --foreground-muted: #8a8f98;
+  --foreground-subtle: #5b5f66;
+  --accent: #5e6ad2;
+  --accent-hover: #6f7bdb;
+  --accent-glow: rgba(94, 106, 210, 0.35);
+  --success: #10b981;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --radius: 16px;
+  --easing: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Liquid Glass (light) tokens */
+  --lg-electric-blue: #0084FF;
+  --lg-electric-blue-soft: rgba(0, 132, 255, 0.8);
+  --lg-glow-blue-a: #60B1FF;
+  --lg-glow-blue-b: #319AFF;
+  --lg-glass-bg: rgba(255, 255, 255, 0.3);
+  --lg-glass-stroke: rgba(0, 0, 0, 0.1);
+  --lg-glass-highlight: rgba(255, 255, 255, 0.25);
+  --lg-cta-highlight: rgba(255, 255, 255, 0.35);
+  --lg-star: #FF801E;
+}
+
+@theme inline {
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-fustat), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Monaco, "Cascadia Code", monospace;
+}
+
+html,
+body {
+  background: var(--bg-base);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(900px 500px at 80% -10%, rgba(94, 106, 210, 0.10), transparent 65%),
+    linear-gradient(180deg, #0a0a0f 0%, #050506 60%, #020203 100%);
+}
+
+::selection {
+  background: var(--accent-glow);
+  color: var(--foreground);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.06); border-radius: 999px; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.12); }
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.05); }
+  66% { transform: translate(-30px, 20px) scale(0.95); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes message-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-blob { animation: blob-drift 18s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+.animate-message-in { animation: message-in 280ms var(--easing) both; }
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.glass-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+.font-display { font-family: var(--font-display); }
+
+/* Liquid Glass page (light theme) */
+.lg-page {
+  background: #ffffff;
+  color: #0a0a0c;
+}
+.lg-page body, body.lg-page-body {
+  background: #ffffff;
+}
+.lg-glow-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.lg-navbar {
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  background: var(--lg-glass-bg);
+  border: 1px solid var(--lg-glass-stroke);
+  border-radius: 16px;
+  box-shadow: inset 0px 4px 4px 0px var(--lg-glass-highlight);
+}
+.lg-cta {
+  background: var(--lg-electric-blue-soft);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 16px;
+  color: #ffffff;
+  box-shadow: inset 0px 4px 4px 0px var(--lg-cta-highlight);
+  transition: transform 240ms var(--easing), background 240ms var(--easing);
+}
+.lg-cta:hover { transform: scale(1.02); background: rgba(0, 132, 255, 0.9); }
+.lg-orb-filter {
+  filter: hue-rotate(-55deg) saturate(250%) brightness(1.2) contrast(1.1);
+  mix-blend-mode: screen;
+}
+
+/* Chat UI — Liquid Glass (light theme) scope */
+.chat-light {
+  --bg-deep: #f4f7fb;
+  --bg-base: #ffffff;
+  --bg-elevated: rgba(255, 255, 255, 0.7);
+  --surface: rgba(0, 0, 0, 0.035);
+  --surface-hover: rgba(0, 0, 0, 0.06);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
+  --foreground: #0a0a0c;
+  --foreground-muted: rgba(0, 0, 0, 0.55);
+  --foreground-subtle: rgba(0, 0, 0, 0.4);
+  --accent: #0084FF;
+  --accent-hover: #0070dd;
+  --accent-glow: rgba(0, 132, 255, 0.22);
+
+  background: #ffffff;
+  color: #0a0a0c;
+}
+
+.chat-light::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); }
+.chat-light::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.16); }
+
+.chat-light .glass {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.chat-light .glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.5);
+}

@@ -1,0 +1,42 @@
+EXAMPLE 1
+Question: Top 5 most watched content by total hours
+Cypher:
+MATCH (a:Account)-[v:VIEWED]->(c:Content)
+RETURN c.content_name AS content, c.content_type AS type,
+       round(sum(v.play_seconds)/3600.0, 1) AS hours,
+       count(v) AS views
+ORDER BY hours DESC LIMIT 5
+
+EXAMPLE 2
+Question: Monthly churn count by product tier in 2024
+Cypher:
+MATCH (s:Service)-[:CHURNED_IN]->(m:Month)
+WHERE m.year = 2024
+RETURN m.key AS month, s.product_name AS tier, count(s) AS churns
+ORDER BY month, churns DESC
+
+EXAMPLE 3
+Question: Top genres by total watch hours
+Cypher:
+MATCH (a:Account)-[v:VIEWED]->(c:Content)-[:HAS_GENRE]->(g:Genre)
+RETURN g.name AS genre,
+       round(sum(v.play_seconds)/3600.0, 1) AS hours,
+       count(v) AS views
+ORDER BY hours DESC LIMIT 10
+
+EXAMPLE 4
+Question: How many accounts acquired in Jan 2023 are still active?
+Cypher:
+MATCH (m:Month {key:"2023-01"})<-[:ACQUIRED_IN]-(a:Account)-[:SUBSCRIBED_TO]->(s:Service)
+WHERE s.is_currently_active = true
+RETURN count(DISTINCT a) AS still_active
+
+EXAMPLE 5
+Question: Active accounts and total hours by month
+Cypher:
+MATCH (a:Account)-[v:VIEWED_IN]->(m:Month)
+RETURN m.key AS month,
+       count(DISTINCT a) AS active_accounts,
+       sum(v.view_count) AS views,
+       round(sum(v.total_seconds)/3600.0, 1) AS hours
+ORDER BY month DESC LIMIT 12

@@ -1,0 +1,11 @@
+Domain: SVOD streaming customer analytics.
+
+Dates are native Neo4j DATE. Use date('2024-01-01') for literals; access d.year / d.month.
+For monthly aggregates prefer the :Month node (key like "2024-03") via VIEWED_IN/ACQUIRED_IN/CHURNED_IN.
+For per-event detail use the VIEWED relationship.
+play_seconds is total seconds watched in one view event.
+A churn = Service with churn_date NOT NULL.
+A retained account = has at least one Service with is_currently_active = true.
+product_name values are case-sensitive ("Annual", "Basic", "Standard", "Partner1").
+Genre matching is case-sensitive; use toLower() if user input casing is uncertain.
+Always LIMIT result sets (default 100).
