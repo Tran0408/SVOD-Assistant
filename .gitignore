@@ -13,3 +13,11 @@ node_modules/
 
 # Data (large CSVs)
 capstone data/
+
+# Internal docs (not for public repo)
+POC_SUMMARY.md
+POC_SUMMARY.html
+POC_SUMMARY.pdf
+TECHNICAL_DOCUMENTATION.md
+TECHNICAL_DOCUMENTATION.html
+TECHNICAL_DOCUMENTATION.pdf
